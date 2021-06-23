@@ -1,0 +1,70 @@
+{
+  "formatVersion": 1,
+  "barcode": {
+    "format": "PKBarcodeFormatQR",
+    "messageEncoding": "iso-8859-1"
+  },
+  "organizationName": "CWA",
+  "description": "CWA",
+  "logoText": "Vaccination Certificate",
+  "foregroundColor": "rgb(0, 0, 0)",
+  "backgroundColor": "rgb(52, 198, 235)",
+  "generic": {
+    "primaryFields": [
+      {
+        "key": "name",
+        "label": "Name",
+        "value": "VN"
+      }
+    ],
+    "secondaryFields": [
+      {
+        "key": "valid_from",
+        "label": "Valid From",
+        "value": "00.00.0000"
+      }
+    ],
+    "backFields": [
+      {
+        "key": "name",
+        "label": "Name",
+        "value": "Firstname Lastname"
+      },
+      {
+        "key": "birthdate",
+        "label": "Birthdate",
+        "value": "00.00.0000"
+      },
+      {
+        "key": "vaccination_date",
+        "label": "Vaccinated",
+        "value": "00.00.0000"
+      },
+      {
+        "key": "vaccine",
+        "label": "Vaccine",
+        "value": "J&J"
+      },
+      {
+        "key": "manufacturer",
+        "label": "Manufacturer",
+        "value": "Janssen-Cilag International"
+      },
+      {
+        "key": "issuer",
+        "label": "Issuer",
+        "value": "RKI"
+      },
+      {
+        "key": "country",
+        "label": "Country",
+        "value": "Deutschland"
+      },
+      {
+        "key": "String",
+        "label": "UVCI (Identifikationsnummer für das Zertifikat)",
+        "value": "URN:XXXXXXX"
+      }
+    ]
+  }
+}
