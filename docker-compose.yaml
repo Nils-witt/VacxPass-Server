@@ -12,4 +12,3 @@ services:
       CERT_PASS: pass
       PassTypeIdentifier: pass.de.nils-witt.cwa
       TeamIdentifier: P29L6CUAA4
-

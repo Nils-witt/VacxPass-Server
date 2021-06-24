@@ -2,7 +2,7 @@ import * as sqlite3 from 'sqlite3';
 
 
 export class SqlLiteConnector {
-    db;
+    db: any;
 
     open(): Promise<void> {
         return new Promise(async (resolve, reject) => {
@@ -25,10 +25,9 @@ export class SqlLiteConnector {
             let sql = `SELECT *
                        FROM meds
                        WHERE redId = ?`;
-
             this.db.all(sql, [id], (err, rows) => {
                 if (err) {
-                    reject(err)
+                    reject(err);
                 } else {
                     if (rows.length == 1) {
                         resolve(rows[0]);
@@ -43,5 +42,4 @@ export class SqlLiteConnector {
     close() {
         this.db.close();
     }
-
 }

@@ -1,5 +1,4 @@
 import {Template} from "@walletpass/pass-js";
-import * as fs from "fs";
 import {DVWR} from "digital-vaccination-wallet-reader";
 import {SqlLiteConnector} from "./SqlLiteConnector";
 
@@ -46,7 +45,7 @@ export class CwaPassGenerator {
                 data = await dv.readCertificate(cert.content);
             } catch (e) {
                 reject(e);
-                console.log("qR FAILED")
+                console.log("QR code failed");
                 return;
             }
 

@@ -17,15 +17,18 @@ db.run(`CREATE TABLE IF NOT EXISTS meds
             mHolder text
         )`, (err) => {
     if (err) {
-        return console.log("!" + err.message);
+        console.log("!" + err.message);
+        return;
     } else {
         console.log("table created");
     }
 });
 
-db.run(`DELETE FROM meds`, (err) => {
+db.run(`DELETE
+        FROM meds`, (err) => {
     if (err) {
-        return console.log("!" + err.message);
+        console.log("!" + err.message);
+        return;
     } else {
         console.log("Table cleared");
     }
