@@ -18,7 +18,7 @@ app.post('/generate', async (req, res) => {
     let data = req.body;
     let id = Date.now().toString() + makeToken(100);
     try {
-        await generator.generatePass(id, data.passToken, data.name, data.validFrom, data.birthdate, data.vaccineDate, data.vaccine, data.manufacturer, data.issuer, data.country);
+        await generator.generatePass(id, data.passToken);
         res.status(201);
         res.send(id);
     } catch (e) {

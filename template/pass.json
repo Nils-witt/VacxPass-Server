@@ -19,8 +19,8 @@
     ],
     "secondaryFields": [
       {
-        "key": "valid_from",
-        "label": "Valid From",
+        "key": "vaccination_date",
+        "label": "Vaccination Date",
         "value": "00.00.0000"
       }
     ],
@@ -61,7 +61,7 @@
         "value": "Deutschland"
       },
       {
-        "key": "String",
+        "key": "uvci",
         "label": "UVCI (Identifikationsnummer für das Zertifikat)",
         "value": "URN:XXXXXXX"
       }
