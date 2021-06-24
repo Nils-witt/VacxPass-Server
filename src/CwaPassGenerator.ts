@@ -1,12 +1,25 @@
 import {Template} from "@walletpass/pass-js";
 import * as fs from "fs";
 import {DVWR} from "digital-vaccination-wallet-reader";
+import {SqlLiteConnector} from "./SqlLiteConnector";
 
 
 export class CwaPassGenerator {
     template: Template;
+    db: SqlLiteConnector;
 
-    async loadTemplate(): Promise<void> {
+    constructor() {
+        this.db = new SqlLiteConnector();
+    }
+
+    setup() {
+        return new Promise(async (resolve, reject) => {
+            await this.loadTemplate()
+            await this.db.open();
+        });
+    }
+
+    loadTemplate(): Promise<void> {
         return new Promise(async (resolve, reject) => {
 
             this.template = await Template.load(
@@ -23,11 +36,19 @@ export class CwaPassGenerator {
         });
     }
 
-    async generatePass(passId: string, barcodeId: string): Promise<void> {
+    generatePass(passId: string, barcodeId: string): Promise<Buffer> {
         return new Promise(async (resolve, reject) => {
             let dv = new DVWR();
-            let cert: any = await dv.readQrCode(barcodeId);
-            let data = await dv.readCertificate(cert.content);
+            let cert: any;
+            let data;
+            try {
+                cert = await dv.readQrCode(barcodeId);
+                data = await dv.readCertificate(cert.content);
+            } catch (e) {
+                reject(e);
+                console.log("qR FAILED")
+                return;
+            }
 
             if (data.certificates.length != 1) {
                 reject("Cert error");
@@ -60,21 +81,21 @@ export class CwaPassGenerator {
             let uvciField = pass.backFields.get("uvci");
 
             let vCert = data.certificates[0];
+            let med: any = await this.db.searchByRegId(vCert.VaccineMedicinalProduct);
 
             nameField.value = data.person.Forename + " " + data.person.Surname;
             name2Field.value = data.person.Forename + " " + data.person.Surname;
             validField.value = vCert.DateOfVaccination;
             birthdateField.value = data.person.Birthday;
             vaccinationDateField.value = vCert.DateOfVaccination;
-            vaccineField.value = vCert.VaccineMedicinalProduct;
-            manufacturerField.value = vCert.VaccineMedicinalProduct;
+            vaccineField.value = med.brand;
+            manufacturerField.value = med.mHolder;
             issuerField.value = vCert.CertificateIssuer;
             countryField.value = vCert.CountryOfVaccination;
             uvciField.value = vCert.CertificateIdentifier;
 
-            const buf = await pass.asBuffer();
-            fs.writeFileSync("./passes/" + passId + ".pkpass", buf);
-            resolve();
+            let buf = await pass.asBuffer();
+            resolve(buf);
         });
     }
 

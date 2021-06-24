@@ -7,9 +7,10 @@ const app = express();
 const port = 3000;
 
 let generator = new CwaPassGenerator();
-generator.loadTemplate();
+generator.setup();
 
 app.use(express.json({limit: '50mb'}));
+
 app.get('/', (req, res) => {
     res.send('READY')
 })
@@ -18,30 +19,18 @@ app.post('/generate', async (req, res) => {
     let data = req.body;
     let id = Date.now().toString() + makeToken(100);
     try {
-        await generator.generatePass(id, data.passToken);
-        res.status(201);
-        res.send(id);
+        let buffer: Buffer = await generator.generatePass(id, data.passToken);
+
+
+        res.writeHead(200, {
+            'Content-Disposition': `attachment; filename="pass.pkpass"`,
+            'Content-Type': 'application/vnd.apple.pkpass',
+        });
+        res.end(buffer);
     } catch (e) {
         res.sendStatus(500)
     }
 
-})
-app.use('/passes', express.static('./passes'))
-
-app.get('/demoData', (req, res) => {
-
-    let data = {
-        passToken: "token",
-        name: "Name",
-        birthdate: "00.00.0000",
-        validFrom: "00.00.0000",
-        vaccineDate: "00.00.0000",
-        vaccine: "J&J",
-        manufacturer: "J&J",
-        issuer: "RKI",
-        country: "DE"
-    }
-    res.json(data)
 })
 
 app.listen(port, () => {
