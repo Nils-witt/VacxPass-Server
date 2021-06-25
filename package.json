@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx pm2 start build/main.js --watch build/",
+    "stop": "npx pm2 stop build/main.js && npx pm2 delete build/main.js",
+    "build": "npx tsc && docker build . -t nilswitt/vacxpass-server:latest",
+    "publish": "git push && docker push nilswitt/vacxpass-server:latest",
+    "test": "node build/main.js --test",
     "tsc": "tsc",
     "db-update": "node build/updateMedDB.js"
   },
@@ -13,22 +17,23 @@
   "license": "ISC",
   "dependencies": {
     "@fidm/x509": "^1.2.1",
-    "@types/express": "^4.17.12",
-    "@types/node": "^15.12.4",
     "@walletpass/pass-js": "^6.9.1",
     "base45": "^3.0.0",
     "base45-js": "^1.0.1",
     "digital-vaccination-wallet-reader": "^1.0.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.7",
     "pako": "^2.0.3",
-    "read-excel-file": "^5.2.2",
     "sha256-uint8array": "^0.10.1",
-    "sqlite3": "^5.0.2",
-    "typescript": "^4.3.4"
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
-    "cose-js": "^0.6.0"
+    "cose-js": "^0.6.0",
+    "@types/express": "^4.17.12",
+    "@types/node": "^15.12.4",
+    "typescript": "^4.3.4",
+    "pm2": "^5.1.0",
+    "read-excel-file": "^5.2.2",
+    "nodemon": "^2.0.7"
   }
 }

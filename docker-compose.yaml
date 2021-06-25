@@ -2,13 +2,12 @@ version: "3"
 
 services:
   api:
-    build: .
-
+    image: nilswitt/vacxpass-server:latest
     ports:
     - 3000:3000
     volumes:
     - ./keys:/usr/src/app/keys
     environment:
       CERT_PASS: pass
-      PassTypeIdentifier: pass.de.nils-witt.cwa
-      TeamIdentifier: P29L6CUAA4
+      PassTypeIdentifier: pass.de.example
+      TeamIdentifier: XXXXXXXXXX

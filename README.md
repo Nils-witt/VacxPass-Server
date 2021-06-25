@@ -18,7 +18,13 @@ This is a free time project at the moment in an very early stage
 3. run 'npm run db-update'
 
 # Docker image
-TODO
+
+Image: TBA
+Run the image:
+```console
+$ docker run -p 3000:3000 -v /yourKeys:/usr/src/app/keys nilswitt/vacxpass-server:latest
+```
+or you can use docker compose 
 
 # iOS Client
 

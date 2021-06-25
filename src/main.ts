@@ -1,6 +1,13 @@
 import * as dotenv from "dotenv";
 import {CwaPassGenerator} from "./CwaPassGenerator";
 
+let testMode = false;
+
+if (process.argv.includes("--test")) {
+    testMode = true;
+    console.log("TEST MODE")
+}
+
 dotenv.config();
 const express = require('express')
 const app = express();
@@ -33,6 +40,12 @@ app.post('/generate', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
+    if (testMode) {
+        setTimeout(() => {
+            process.exit(0);
+        }, 2000);
+    }
+
 })
 
 function makeToken(length) {
