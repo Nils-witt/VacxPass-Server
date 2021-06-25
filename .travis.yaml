@@ -14,4 +14,5 @@ script:
 branches:
   only:
     - master
+    - main
     - stable
