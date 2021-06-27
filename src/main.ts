@@ -14,7 +14,9 @@ const app = express();
 const port = 3000;
 
 let generator = new CwaPassGenerator();
-generator.setup();
+if (!testMode) {
+    generator.setup();
+}
 
 app.use(express.json({limit: '50mb'}));
 

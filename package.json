@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npx pm2 start build/main.js --watch build/",
     "stop": "npx pm2 stop build/main.js && npx pm2 delete build/main.js",
-    "build": "npx tsc && docker build . -t nilswitt/vacxpass-server:latest",
+    "build": "npx tsc",
+    "build:docker": "docker build . -t nilswitt/vacxpass-server:latest",
     "publish": "git push && docker push nilswitt/vacxpass-server:latest",
     "test": "node build/main.js --test",
     "tsc": "tsc",
