@@ -34,6 +34,7 @@ db.run(`DELETE
     }
 });
 
+// @ts-ignore
 readXlsxFile('./db/input.xlsx').then((rows) => {
     for (let i = 3; i < rows.length; i++) {
         let row = rows[i];
