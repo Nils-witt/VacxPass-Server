@@ -22,7 +22,7 @@
     "base45": "^3.0.0",
     "base45-js": "^1.0.2",
     "digital-vaccination-wallet-reader": "^1.0.5",
-    "dotenv": "^14.1.0",
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "pako": "^2.0.4",
     "sha256-uint8array": "^0.10.3",
